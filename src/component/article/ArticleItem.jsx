@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { toggleClippedArticles,toggleEveryArticles } from "../../store/reducer";
 
 /* CSS */
 const ArticleItemSt = styled.div`
@@ -46,18 +48,23 @@ const ArticleBodySt = styled.div`
   }
 `;
 
-export default function ArticleItem({ title, content, date }) {
+export default function ArticleItem({ article }) {
+  const dispatch = useDispatch()
+  const { web_url:url, _id: id, headline:{main:title}, pub_date:date, snippet:content, clipped} = article;
+  
   return (
     <ArticleItemSt>
       <ArticleHeaderSt>
-        <h2>{title}</h2>
-        <button>
+        <a href={url} target='_blanck' rel='noopener noreferrer'><h2>{title}</h2></a>
+        <button className={clipped? 'active':''}onClick={()=>{
+          dispatch(toggleEveryArticles({id:id}))
+          dispatch(toggleClippedArticles({chosen:article}))}}>
           <FaStar />
         </button>
       </ArticleHeaderSt>
       <ArticleBodySt>
         <p>{content}</p>
-        <span>{date}</span>
+        <span>{date.slice(0,10)}</span>
       </ArticleBodySt>
     </ArticleItemSt>
   );

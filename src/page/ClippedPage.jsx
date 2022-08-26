@@ -1,14 +1,14 @@
 import React from "react";
 import Header from "../component/header/Header";
 import ArticleList from "../component/article/ArticleList";
-import { store } from "../store/store";
-import { Provider } from "react-redux";
+import {  useSelector } from "react-redux";
 
 export default function ClippedPage() {
+  const clippedArticles = useSelector((state)=>state.articleSlice.clippedArticles)
   return (
-    <Provider store={store}>
+    <>
       <Header />
-      <ArticleList />
-    </Provider>
+      <ArticleList articles={clippedArticles}/>
+    </>
   );
 }
