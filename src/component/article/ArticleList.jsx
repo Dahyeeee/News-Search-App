@@ -23,8 +23,9 @@ export default function ArticleList({articles}) {
   ));
   
   return (
+   
     <ArticleWrapper>
       <article>{articlesMapped}</article>
     </ArticleWrapper>
-  );
+  )
 }

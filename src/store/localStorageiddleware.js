@@ -1,5 +1,9 @@
 const localStorageMiddleware = (store) => (next) => (action) => {
-  localStorage.setItem("articles", JSON.stringify(store.getState()));
+ 
+  if(action.type==='articleHandler/toggleClippedArticles'){
+    const clippedArticles = store.getState().articleSlice.clippedArticles
+    localStorage.setItem("clippedArticles", JSON.stringify(clippedArticles));
+  }
 
   return next(action);
 };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { toggleClippedArticles,toggleEveryArticles } from "../../store/reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleClippedArticles,toggleEveryArticles, markClipped } from "../../store/reducer";
 
 /* CSS */
 const ArticleItemSt = styled.div`
@@ -50,8 +50,17 @@ const ArticleBodySt = styled.div`
 
 export default function ArticleItem({ article }) {
   const dispatch = useDispatch()
-  const { web_url:url, _id: id, headline:{main:title}, pub_date:date, snippet:content, clipped} = article;
   
+  let { web_url:url, _id: id, headline:{main:title}, pub_date:date, snippet:content, clipped} = article;
+  
+  //everyarticle일때만 
+//  const clippedArticles = useSelector((state)=>state.articleSlice.clippedArticles);
+ // const alreadyClipped = clippedArticles.find(each=>each._id ===id);
+
+ // if(alreadyClipped){
+ //   dispatch(markClipped({id:id}))
+//  }
+
   return (
     <ArticleItemSt>
       <ArticleHeaderSt>

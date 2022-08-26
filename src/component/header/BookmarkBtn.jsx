@@ -8,6 +8,7 @@ const BookmarkSt = styled.div`
   position: absolute;
   top: 2.5rem;
   right: 7%;
+  color: ${props => props.isMain ? "black" : "red"};
   cursor: pointer;
 `;
 
@@ -15,7 +16,7 @@ export default function Bookmark() {
   const isMainPage = useSelector((state)=>state.articleSlice.isMainPage)
   const dispatch = useDispatch()
   return (
-    <BookmarkSt>
+    <BookmarkSt isMain={isMainPage}>
       <Link to={isMainPage ? '/clip' : '/'}>
         <BsFillBookmarkFill onClick={()=>dispatch(togglePages())}/>
       </Link>

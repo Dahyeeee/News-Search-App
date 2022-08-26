@@ -1,4 +1,8 @@
+import { useState } from "react";
 import styled from "styled-components";
+import {useDispatch} from 'react-redux'
+import { setEveryArticles } from "../../store/reducer";
+import { request } from "../../utils/api";
 
 const InputContainerST = styled.div`
   display: flex;
@@ -20,12 +24,27 @@ const InputContainerST = styled.div`
     font-size: 18px;
   }
 `;
-
+let timer;
 export default function InputField() {
+  const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+
+  const getArticles =(e)=>{
+    setValue(e.target.value);
+    if(e.target.value==='') return;
+  
+    clearTimeout(timer);
+
+    timer = setTimeout(async() => {
+      const data = await request(value, 1);
+      dispatch(setEveryArticles({data:data}))
+    }, 500);
+  }
+
   return (
     <InputContainerST>
       <div className="searchBar">
-        <input className="searchBar__input" type="text" />
+        <input className="searchBar__input" placeholder='type keyword here!' value ={value} type="text" onChange={(e)=>getArticles(e)} />
         <div className="searchBar__icon"></div>
       </div>
     </InputContainerST>

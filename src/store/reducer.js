@@ -21,7 +21,6 @@ export const articleSlice = createSlice({
       state.everyArticles.concat(action.payload.data);
     },
     toggleClippedArticles: (state, action) => {
-      //이거 되려나..?
       const chosen = action.payload.chosen
       const id = chosen._id;
       if (!chosen.clipped) {
@@ -34,6 +33,9 @@ export const articleSlice = createSlice({
     },
     toggleEveryArticles:(state, action)=>{
       state.everyArticles= state.everyArticles.map(each=> each._id === action.payload.id ? {...each, clipped:!each.clipped} : each )
+    },
+    markClipped:(state,action)=>{
+      state.everyArticles = state.everyArticles.map(each=> each._id ===action.payload.id ? {...each, clipped:true} : each )
     },
     setHistory: (state, action) => {
       const word = action.payload.word;
@@ -66,7 +68,8 @@ export const {
   setSearchWord,
   togglePages,
   toggleIsLoading,
-  toggleEveryArticles
+  toggleEveryArticles,
+  markClipped
 } = articleSlice.actions;
 
 export default articleSlice.reducer;
