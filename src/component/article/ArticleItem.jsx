@@ -49,17 +49,9 @@ const ArticleBodySt = styled.div`
 `;
 
 export default function ArticleItem({ article }) {
+  let { web_url:url, _id: id, headline:{main:title}, pub_date:date, snippet:content, clipped} = article;
   const dispatch = useDispatch()
   
-  let { web_url:url, _id: id, headline:{main:title}, pub_date:date, snippet:content, clipped} = article;
-  
-  //everyarticle일때만 
-//  const clippedArticles = useSelector((state)=>state.articleSlice.clippedArticles);
- // const alreadyClipped = clippedArticles.find(each=>each._id ===id);
-
- // if(alreadyClipped){
- //   dispatch(markClipped({id:id}))
-//  }
 
   return (
     <ArticleItemSt>

@@ -1,8 +1,11 @@
 import styled from "styled-components";
 
 const HistoryContainerST = styled.div`
-  .keyword-wrap {
+  /* .hidden{
     display: none;
+  } */
+
+  .keyword-wrap {
     position: absolute;
     top: 50px;
     width: 85%;
@@ -38,10 +41,11 @@ const HistoryContainerST = styled.div`
 export default function History() {
   <HistoryContainerST>
     <div className="keyword-wrap">
-      <div className="keyword-top">
-        <li></li>
-      </div>
-      <hr />
+      <div className="keyword-top"></div>
+        <ul>
+          <li>hello</li>
+          <li>good</li>
+        </ul>
     </div>
   </HistoryContainerST>
 }

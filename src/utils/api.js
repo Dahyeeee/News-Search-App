@@ -6,7 +6,9 @@ const getUrl=(keyword, page) => `https://api.nytimes.com/svc/search/v2/articlese
 export const request = async(word,page)=> {
   try {
     const res = await axios.get(getUrl(word,page));
-    return res.data.response.docs;
+    const data = res.data.response.docs;
+   return data.map(each=>{return {...each, clipped:false}})
+  
   }
   catch (error) {
     console.log(error);

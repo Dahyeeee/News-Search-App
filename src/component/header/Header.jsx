@@ -11,7 +11,7 @@ const HeaderWrapper = styled.header`
   background-color: #fff;
 `;
 const Logo = styled.div`
-  width: 70%;
+  width: 50%;
   height: 60px;
   img {
     width: 100%;
