@@ -1,28 +1,49 @@
-import { configureStore } from "@reduxjs/toolkit";
-import localStorageMiddleware from "./localStorageiddleware.js";
-import articleSlice from "./reducer.js";
+import {
+  combineReducers,
+  configureStore,
+} from "@reduxjs/toolkit";
+import storage from "redux-persist/es/storage";
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import saveReducer from "./slices/saveSlice.js";
+import unsaveReducer from "./slices/unsaveSlice.js";
 
-const initalState = {
-  everyArticles: [],
-  clippedArticles: [],
-  history: [],
-  isMainPage: true,
-  isLoading: false,
-  searchWord: "",
+const rootReuder = combineReducers({
+  save: saveReducer,
+  unsave: unsaveReducer,
+});
+
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["save"],
 };
 
- const reHydrateStore = () => {
-   if (localStorage.getItem("clippedArticles") !== undefined) {
-     const clippedArticles = JSON.parse(localStorage.getItem("clippedArticles"));
-     return {articleSlice:{...initalState, clippedArticles}}
-   }return {articleSlice:{...initalState}}
- };
+const persistedReducer = persistReducer(
+  persistConfig,
+  rootReuder,
+);
 
 export const store = configureStore({
-  reducer: {
-    articleSlice: articleSlice,
-  },
-   preloadedState: reHydrateStore(),
-middleware: (getDefaultMiddleware) =>
-   getDefaultMiddleware().concat(localStorageMiddleware),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+        ],
+      },
+    }),
 });

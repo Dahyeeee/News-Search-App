@@ -1,8 +1,11 @@
 import History from "./History";
 import { useState } from "react";
 import styled from "styled-components";
-import {useDispatch} from 'react-redux'
-import { setEveryArticles, setHistory } from "../../store/reducer";
+import { useDispatch } from "react-redux";
+import {
+  setEveryArticles,
+  setHistory,
+} from "../../store/reducer";
 import { request } from "../../utils/api";
 
 const InputContainerST = styled.div`
@@ -29,31 +32,36 @@ const InputContainerST = styled.div`
 let timer;
 export default function InputField() {
   const dispatch = useDispatch();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
-  const getArticles =(e)=>{
+  const getArticles = (e) => {
     setValue(e.target.value);
-    if(e.target.value==='') return;
-  
+    if (e.target.value === "") return;
+
     clearTimeout(timer);
 
-    timer = setTimeout(async() => {
+    timer = setTimeout(async () => {
       const data = await request(value, 1);
-      dispatch(setEveryArticles({data:data}))
-      dispatch(setHistory({word:value}))
+      dispatch(setEveryArticles({ data: data }));
+      dispatch(setHistory({ word: value }));
     }, 500);
-  }
+  };
 
   return (
     <>
-     <InputContainerST>
-      <div className="searchBar">
-        <input className="searchBar__input" placeholder='type keyword here!' value ={value} type="text" onChange={(e)=>getArticles(e)} />
-        <div className="searchBar__icon"></div>
-      </div>
-       {/* <div> <History /></div> */}
+      <InputContainerST>
+        <div className="searchBar">
+          <input
+            className="searchBar__input"
+            placeholder="type keyword here!"
+            value={value}
+            type="text"
+            onChange={(e) => getArticles(e)}
+          />
+          <div className="searchBar__icon"></div>
+        </div>
+        {/* <div> <History /></div> */}
       </InputContainerST>
-      
-      </>
+    </>
   );
 }

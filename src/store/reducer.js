@@ -8,10 +8,11 @@ const initalState = {
   isMainPage: true,
   isLoading: false,
   searchWord: "",
+  page: 1,
 };
 
-export const articleSlice = createSlice({
-  name: "articleHandler",
+const articleSlice = createSlice({
+  name: "articleSlice",
   initialState: initalState,
   reducers: {
     setEveryArticles: (state, action) => {
@@ -21,21 +22,35 @@ export const articleSlice = createSlice({
       state.everyArticles.concat(action.payload.data);
     },
     toggleClippedArticles: (state, action) => {
-      const chosen = action.payload.chosen
+      const chosen = action.payload.chosen;
       const id = chosen._id;
       if (!chosen.clipped) {
-        state.clippedArticles.push({ ...chosen, clipped: true });
+        state.clippedArticles.push({
+          ...chosen,
+          clipped: true,
+        });
       } else {
-        state.clippedArticles = state.clippedArticles.filter(
-          (each) => each._id !== id
-        );
+        state.clippedArticles =
+          state.clippedArticles.filter(
+            (each) => each._id !== id,
+          );
       }
     },
-    toggleEveryArticles:(state, action)=>{
-      state.everyArticles= state.everyArticles.map(each=> each._id === action.payload.id ? {...each, clipped:!each.clipped} : each )
+    toggleEveryArticles: (state, action) => {
+      state.everyArticles = state.everyArticles.map(
+        (each) =>
+          each._id === action.payload.id
+            ? { ...each, clipped: !each.clipped }
+            : each,
+      );
     },
-    markClipped:(state,action)=>{
-      state.everyArticles = state.everyArticles.map(each=> each._id ===action.payload.id ? {...each, clipped:true} : each )
+    markClipped: (state, action) => {
+      state.everyArticles = state.everyArticles.map(
+        (each) =>
+          each._id === action.payload.id
+            ? { ...each, clipped: true }
+            : each,
+      );
     },
     setHistory: (state, action) => {
       const word = action.payload.word;
@@ -57,6 +72,9 @@ export const articleSlice = createSlice({
     toggleIsLoading: (state, action) => {
       state.isLoading = action.payload.boolean;
     },
+    setPage: (state, action) => {
+      state.page = action.payload.page;
+    },
   },
 });
 
@@ -69,7 +87,8 @@ export const {
   togglePages,
   toggleIsLoading,
   toggleEveryArticles,
-  markClipped
+  markClipped,
+  setPage,
 } = articleSlice.actions;
 
 export default articleSlice.reducer;
