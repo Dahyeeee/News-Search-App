@@ -1,14 +1,7 @@
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteClippedArticle,
-  setClippedArticles,
-} from "../../store/slices/saveSlice";
-import {
-  setEveryArticles,
-  toggleEveryArticles,
-} from "../../store/slices/unsaveSlice";
+import { useDispatch } from "react-redux";
+import { toggleClippedArticles } from "../../store/slices/saveSlice";
 
 /* CSS */
 const ArticleItemSt = styled.div`
@@ -59,7 +52,6 @@ export default function ArticleItem({ article }) {
   const dispatch = useDispatch();
   const {
     web_url: url,
-    _id: id,
     headline: { main: title },
     pub_date: date,
     snippet: content,
@@ -79,16 +71,9 @@ export default function ArticleItem({ article }) {
         <button
           className={clipped ? "active" : ""}
           onClick={() => {
-            dispatch(toggleEveryArticles({ id: id }));
-            if (!clipped) {
-              dispatch(
-                setClippedArticles({
-                  article: { ...article, clipped: true },
-                }),
-              );
-            } else {
-              dispatch(deleteClippedArticle({ id: id }));
-            }
+            dispatch(
+              toggleClippedArticles({ chosen: article }),
+            );
           }}
         >
           <FaStar />

@@ -24,7 +24,7 @@ export default function Bookmark() {
       <Link to={isMainPage ? "/clip" : "/"}>
         <BsFillBookmarkFill
           onClick={() => {
-            dispatch(togglePages());
+            dispatch(togglePages({ state: !isMainPage }));
           }}
           className={isMainPage ? "" : "active"}
         />

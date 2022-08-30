@@ -4,9 +4,9 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-import ClippedPage from "./page/ClippedPage";
 import MainPage from "./page/MainPage";
 import { store } from "./store/store";
 import { persistStore } from "redux-persist";
@@ -20,7 +20,11 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/clip" element={<ClippedPage />} />
+            <Route path="/clip" element={<MainPage />} />
+            <Route
+              path="*"
+              element={<Navigate to={"/"} />}
+            />
           </Routes>
         </BrowserRouter>
       </PersistGate>

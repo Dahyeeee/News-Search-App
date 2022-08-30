@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import ArticleItem from "./ArticleItem";
 
@@ -12,7 +13,14 @@ const ArticleWrapper = styled.main`
   }
 `;
 
-export default function ArticleList({ articles }) {
+export default function ArticleList() {
+  const { isMainpage, clippedArticles, everyArticles } =
+    useSelector((state) => state.save);
+
+  const articles = isMainpage
+    ? everyArticles
+    : clippedArticles;
+
   return (
     <ArticleWrapper>
       <article>

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { setEveryArticles } from "../../store/slices/unsaveSlice.js";
-import { setHistory } from "../../store/slices/saveSlice.js";
+import {
+  setHistory,
+  setEveryArticles,
+} from "../../store/slices/saveSlice.js";
 import { request } from "../../utils/api";
 
 const InputContainerST = styled.div`
