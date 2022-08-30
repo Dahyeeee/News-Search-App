@@ -14,7 +14,7 @@ const unsaveSlice = createSlice({
       state.searchWord = action.payload.word;
     },
     toggleIsLoading: (state, action) => {
-      state.isLoading = action.payload.boolean;
+      state.isLoading = action.payload.state;
     },
     setPage: (state, action) => {
       state.page = action.payload.page;

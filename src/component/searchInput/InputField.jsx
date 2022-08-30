@@ -6,6 +6,7 @@ import {
   setEveryArticles,
 } from "../../store/slices/saveSlice.js";
 import { request } from "../../utils/api";
+import { toggleIsLoading } from "../../store/slices/unsaveSlice.js";
 
 const InputContainerST = styled.div`
   display: flex;
@@ -40,9 +41,11 @@ export default function InputField() {
     clearTimeout(timer);
 
     timer = setTimeout(async () => {
+      dispatch(toggleIsLoading({ state: true }));
       const data = await request(value, 1);
       dispatch(setEveryArticles({ data: data }));
       dispatch(setHistory({ word: value }));
+      dispatch(toggleIsLoading({ state: false }));
     }, 500);
   };
 

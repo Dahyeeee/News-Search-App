@@ -13,9 +13,21 @@ const ArticleWrapper = styled.main`
   }
 `;
 
+const LoadingSt = styled.h2`
+  text-align: center;
+`;
+
+function Loading() {
+  return <h2>Getting data...</h2>;
+}
+
 export default function ArticleList() {
   const { isMainpage, clippedArticles, everyArticles } =
     useSelector((state) => state.save);
+
+  const isLoading = useSelector(
+    (state) => state.unsave.isLoading,
+  );
 
   const articles = isMainpage
     ? everyArticles
@@ -24,12 +36,18 @@ export default function ArticleList() {
   return (
     <ArticleWrapper>
       <article>
-        {articles.map((article) => (
-          <ArticleItem
-            key={article._id}
-            article={article}
-          />
-        ))}
+        {isLoading ? (
+          <LoadingSt>
+            <Loading />
+          </LoadingSt>
+        ) : (
+          articles.map((article) => (
+            <ArticleItem
+              key={article._id}
+              article={article}
+            />
+          ))
+        )}
       </article>
     </ArticleWrapper>
   );
