@@ -12,17 +12,17 @@ const ArticleWrapper = styled.main`
   }
 `;
 
-export default function ArticleList({articles}) {
-
+export default function ArticleList({ articles }) {
   return (
-   
     <ArticleWrapper>
-      <article>{articles.map((article) => (
-    <ArticleItem
-      key={article._id}
-      article={article}
-    />
-  ))}</article>
+      <article>
+        {articles.map((article) => (
+          <ArticleItem
+            key={article._id}
+            article={article}
+          />
+        ))}
+      </article>
     </ArticleWrapper>
-  )
+  );
 }

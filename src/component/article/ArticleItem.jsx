@@ -1,7 +1,14 @@
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleClippedArticles,toggleEveryArticles, markClipped } from "../../store/reducer";
+import {
+  deleteClippedArticle,
+  setClippedArticles,
+} from "../../store/slices/saveSlice";
+import {
+  setEveryArticles,
+  toggleEveryArticles,
+} from "../../store/slices/unsaveSlice";
 
 /* CSS */
 const ArticleItemSt = styled.div`
@@ -49,23 +56,47 @@ const ArticleBodySt = styled.div`
 `;
 
 export default function ArticleItem({ article }) {
-  let { web_url:url, _id: id, headline:{main:title}, pub_date:date, snippet:content, clipped} = article;
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+  const {
+    web_url: url,
+    _id: id,
+    headline: { main: title },
+    pub_date: date,
+    snippet: content,
+    clipped,
+  } = article;
 
   return (
     <ArticleItemSt>
       <ArticleHeaderSt>
-        <a href={url} target='_blanck' rel='noopener noreferrer'><h2>{title}</h2></a>
-        <button className={clipped? 'active':''}onClick={()=>{
-          dispatch(toggleEveryArticles({id:id}))
-          dispatch(toggleClippedArticles({chosen:article}))}}>
+        <a
+          href={url}
+          target="_blanck"
+          rel="noopener noreferrer"
+        >
+          <h2>{title}</h2>
+        </a>
+        <button
+          className={clipped ? "active" : ""}
+          onClick={() => {
+            dispatch(toggleEveryArticles({ id: id }));
+            if (!clipped) {
+              dispatch(
+                setClippedArticles({
+                  article: { ...article, clipped: true },
+                }),
+              );
+            } else {
+              dispatch(deleteClippedArticle({ id: id }));
+            }
+          }}
+        >
           <FaStar />
         </button>
       </ArticleHeaderSt>
       <ArticleBodySt>
         <p>{content}</p>
-        <span>{date.slice(0,10)}</span>
+        <span>{date.slice(0, 10)}</span>
       </ArticleBodySt>
     </ArticleItemSt>
   );

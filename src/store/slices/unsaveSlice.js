@@ -17,6 +17,14 @@ const unsaveSlice = createSlice({
     setMoreArticles: (state, action) => {
       state.everyArticles.concat(action.payload.data);
     },
+    toggleEveryArticles: (state, action) => {
+      state.everyArticles = state.everyArticles.map(
+        (each) =>
+          each._id === action.payload.id
+            ? { ...each, clipped: !each.clipped }
+            : each,
+      );
+    },
     setSearchWord: (state, action) => {
       state.searchWord = action.payload.word;
     },
@@ -35,5 +43,6 @@ export const {
   setSearchWord,
   toggleIsLoading,
   setPage,
+  toggleEveryArticles,
 } = unsaveSlice.actions;
 export default unsaveSlice.reducer;

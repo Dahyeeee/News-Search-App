@@ -7,6 +7,7 @@ export default function ClippedPage() {
   const clippedArticles = useSelector(
     (state) => state.save.clippedArticles,
   );
+
   return (
     <>
       <Header />

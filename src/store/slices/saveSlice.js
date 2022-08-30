@@ -21,20 +21,13 @@ const saveSlice = createSlice({
       }
       state.history.push(word);
     },
-    toggleClippedArticles: (state, action) => {
-      const chosen = action.payload.chosen;
-      const id = chosen._id;
-      if (!chosen.clipped) {
-        state.clippedArticles.push({
-          ...chosen,
-          clipped: true,
-        });
-      } else {
-        state.clippedArticles =
-          state.clippedArticles.filter(
-            (each) => each._id !== id,
-          );
-      }
+    setClippedArticles: (state, action) => {
+      state.clippedArticles.push(action.payload.article);
+    },
+    deleteClippedArticle: (state, action) => {
+      state.clippedArticles = state.clippedArticles.filter(
+        (article) => article._id !== action.payload.id,
+      );
     },
     togglePages: (state) => {
       state.isMainpage = !state.isMainpage;
@@ -43,7 +36,8 @@ const saveSlice = createSlice({
 });
 
 export const {
-  toggleClippedArticles,
+  setClippedArticles,
+  deleteClippedArticle,
   togglePages,
   setHistory,
 } = saveSlice.actions;

@@ -6,7 +6,10 @@ const getUrl = (keyword, page) =>
 export const request = async (word, page) => {
   try {
     const res = await axios.get(getUrl(word, page));
-    return res.data.response.docs;
+    const data = res.data.response.docs.map((each) => {
+      return { ...each, clipped: false };
+    });
+    return data;
   } catch (error) {
     console.log(error);
   }
