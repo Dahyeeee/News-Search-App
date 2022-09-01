@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { setPage } from "../../store/slices/unsaveSlice";
 import { setMoreArticles } from "../../store/slices/saveSlice";
 import ArticleItem from "./ArticleItem";
-import useFetchData from "../../utils/useFetchData";
 import { request } from "../../utils/api";
 
 /* CSS */
@@ -43,12 +42,9 @@ export default function ArticleList() {
       observer.current = new IntersectionObserver(
         async (entries) => {
           if (entries[0].isIntersecting) {
-            console.log("hey");
             dispatch(setPage({ page: page + 1 }));
             const data = await request(searchWord, page);
-            console.log(data);
             dispatch(setMoreArticles({ data: data }));
-            console.log(everyArticles);
           }
         },
       );

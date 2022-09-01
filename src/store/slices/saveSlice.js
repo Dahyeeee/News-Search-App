@@ -43,13 +43,14 @@ const saveSlice = createSlice({
     setHistory: (state, action) => {
       const word = action.payload.word;
       if (state.history.includes(word)) {
-        const index = state.history.indexOf(word);
-        state.history.splice(index, 1);
+        state.history = state.history.filter(
+          (each) => each !== word,
+        );
       }
-      if (state.history.length > 5) {
-        state.history.shift();
+      if (state.history.length >= 5) {
+        state.history.pop();
       }
-      state.history.push(word);
+      state.history.unshift(word);
     },
     toggleClippedArticles: (state, action) => {
       const chosen = action.payload.chosen;
