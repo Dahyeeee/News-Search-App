@@ -21,10 +21,6 @@ const LoadingSt = styled.div`
   text-align: center;
 `;
 
-function Loading() {
-  return <div>Getting data...</div>;
-}
-
 export default function ArticleList() {
   const { isLoading, page, searchWord } = useSelector(
     (state) => state.unsave,
@@ -60,27 +56,24 @@ export default function ArticleList() {
   return (
     <ArticleWrapper>
       <article>
-        {isLoading ? (
+        {isLoading && (
           <LoadingSt>
-            <Loading />
+            {" "}
+            <div>Getting data...</div>{" "}
           </LoadingSt>
-        ) : (
-          articles.map((article, index) =>
-            index === articles.length - 1 ? (
-              <div
-                key={article._id}
-                ref={lastArticleElementRef}
-              >
-                <ArticleItem article={article} />
-              </div>
-            ) : (
-              <ArticleItem
-                key={article._id}
-                article={article}
-              />
-            ),
-          )
         )}
+        {articles.map((article, index) => (
+          <div
+            key={article._id}
+            ref={
+              index === articles.length - 1
+                ? lastArticleElementRef
+                : undefined
+            }
+          >
+            <ArticleItem article={article} />
+          </div>
+        ))}
       </article>
     </ArticleWrapper>
   );
