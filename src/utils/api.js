@@ -1,8 +1,8 @@
 import axios from "axios";
-const API_KEY = process.env.REACT_APP_KEY;
 
+const API_KEY = process.env.REACT_APP_KEY;
 const getUrl = (keyword, page) =>
-  `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${keyword}&sort=newest&page=${page}&api-key=${API_KEY}`;
+  `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${keyword}&sort=newest&page=${page}&api-key=TJdabzukPLFuSQGAmkEliJ1fAkVgWCrm`;
 
 export const request = async (word, page) => {
   try {

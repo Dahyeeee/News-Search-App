@@ -12,7 +12,7 @@ export default function MainPage() {
   const dispatch = useDispatch();
 
   const path = window.location.pathname;
-  console.log(path);
+
   if (path === "/clip") {
     dispatch(togglePages({ state: false }));
   } else {

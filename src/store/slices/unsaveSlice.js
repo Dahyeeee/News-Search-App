@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   searchWord: "",
   page: 1,
+  lastItem: "",
 };
 
 const unsaveSlice = createSlice({
@@ -19,15 +20,16 @@ const unsaveSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload.page;
     },
+    setLastItme: (state, action) => {
+      state.lastItem = action.payload.lastItem;
+    },
   },
 });
 
 export const {
-  setEveryArticles,
-  setMoreArticles,
   setSearchWord,
   toggleIsLoading,
   setPage,
-  toggleEveryArticles,
+  setLastItme,
 } = unsaveSlice.actions;
 export default unsaveSlice.reducer;

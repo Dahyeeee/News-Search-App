@@ -36,7 +36,9 @@ const saveSlice = createSlice({
           ? { ...each, clipped: true }
           : each,
       );
-      state.everyArticles.concat(data);
+      console.log("reudcer");
+      state.everyArticles =
+        state.everyArticles.concat(data);
     },
     setHistory: (state, action) => {
       const word = action.payload.word;
@@ -87,6 +89,7 @@ const saveSlice = createSlice({
 export const {
   toggleClippedArticles,
   setEveryArticles,
+  setMoreArticles,
   togglePages,
   setHistory,
 } = saveSlice.actions;
